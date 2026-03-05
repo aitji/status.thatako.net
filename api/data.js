@@ -8,7 +8,7 @@ const REPO_OWNER = 'aitji'
 const REPO_NAME = 'status.thatako.net'
 const DATA_BRANCH = 'data'
 const RAW_BASE = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${DATA_BRANCH}`
-const CACHE_TTL = 5 * 60 * 1000 // 5min
+const CACHE_TTL = 1 * 60 * 1000 // 1min
 
 const SERVICES = ['go.thatako.net', 'workers.thatako.net', 'thatako.net']
 
