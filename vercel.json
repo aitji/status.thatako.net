@@ -6,7 +6,7 @@
             "handle": "filesystem"
         },
         {
-            "src": "/img/(.*)",
+            "src": "/zStyles/tooltip.css",
             "headers": {
                 "cache-control": "public, max-age=2592000, immutable"
             }
