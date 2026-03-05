@@ -1,5 +1,23 @@
 {
-    "go.thatako.net": {},
-    "dns.thatako.net": {},
-    "thatako.net": {}
+  "go.thatako.net": {
+    "2026-03-05": {
+      "uptime": 100,
+      "checks": 1,
+      "down": 0
+    }
+  },
+  "dns.thatako.net": {
+    "2026-03-05": {
+      "uptime": 0,
+      "checks": 1,
+      "down": 1
+    }
+  },
+  "thatako.net": {
+    "2026-03-05": {
+      "uptime": 100,
+      "checks": 1,
+      "down": 0
+    }
+  }
 }

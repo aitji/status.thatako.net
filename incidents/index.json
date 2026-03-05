@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "date": "2026-03-05",
+    "file": "2026-03-05-outage.md",
+    "title": "Outage detected: dns.thatako.net",
+    "auto": true
+  }
+]
