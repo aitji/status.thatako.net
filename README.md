@@ -1,0 +1,1 @@
+i will write ``README.md`` for this later when free time hit me up, but let just say it part of [thatako.net](https://github.com/aitji/thatako.net).
