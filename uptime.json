@@ -2,35 +2,35 @@
   "go.thatako.net": {
     "2026-03-05": {
       "uptime": 100,
-      "checks": 10,
+      "checks": 11,
       "down": 0
     }
   },
   "thatako.net": {
     "2026-03-05": {
       "uptime": 100,
-      "checks": 10,
+      "checks": 11,
       "down": 0
     }
   },
   "status.thatako.net": {
     "2026-03-05": {
       "uptime": 100,
-      "checks": 9,
+      "checks": 10,
       "down": 0
     }
   },
   "workers.thatako.net": {
     "2026-03-05": {
       "uptime": 100,
-      "checks": 9,
+      "checks": 10,
       "down": 0
     }
   },
   "workers.thatako.net/dns": {
     "2026-03-05": {
       "uptime": 100,
-      "checks": 9,
+      "checks": 10,
       "down": 0
     }
   }
