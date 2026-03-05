@@ -5,9 +5,11 @@ const https = require('https')
 const http = require('http')
 
 const SERVICES = [
-    'go.thatako.net',
-    'dns.thatako.net',
     'thatako.net',
+    'status.thatako.net',
+    'go.thatako.net',
+    'workers.thatako.net',
+    'workers.thatako.net/dns',
 ]
 
 const MAX_METRICS_AGE_H = 24  // hours - rolling window
