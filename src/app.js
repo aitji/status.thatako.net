@@ -14,10 +14,10 @@ async function loadAll() {
 
 function timeAgo(date) {
     const s = (Date.now() - date) / 1000
-    if (s < 60) return Math.round(s) + 's ago'
-    if (s < 3600) return Math.round(s / 60) + 'm ago'
-    if (s < 86400) return Math.round(s / 3600) + 'h ago'
-    return Math.round(s / 86400) + 'd ago'
+    if (s < 60) return Math.round(s) + ' วินาทีที่แล้ว'
+    if (s < 3600) return Math.round(s / 60) + ' นาทีที่แล้ว'
+    if (s < 86400) return Math.round(s / 3600) + ' ชั่วโมงที่แล้ว'
+    return Math.round(s / 86400) + ' วันที่แล้ว'
 }
 
 function drawSparkline(canvas, data, color) {
@@ -78,22 +78,22 @@ function renderServices(metrics) {
         let bc, bt, lc
         if (up === null) {
             bc = 'badge-unk'
-            bt = 'unknown'
+            bt = 'ไม่ทราบ'
             lc = '#aaaaaa'
         } else if (!up) {
             bc = 'badge-down'
-            bt = 'outage'
+            bt = '์หยุดทำงาน'
             lc = '#ed4245'
             anyDown = true
             allOk = false
         } else if (ms > 1500) {
             bc = 'badge-warn'
-            bt = 'degraded'
+            bt = 'ตอบสนองช้า'
             lc = '#faa61a'
             allOk = false
         } else {
             bc = 'badge-up'
-            bt = 'operational'
+            bt = 'ปกติ'
             lc = '#3ba55c'
         }
 
@@ -110,15 +110,15 @@ function renderServices(metrics) {
 
             <div class="svc-stats">
                 <div class="stat-item">
-                    <span class="stat-label">last check</span>
+                    <span class="stat-label">ตรวจสอบล่าสุด</span>
                     <span class="stat-value">${ms !== null ? ms + ' ms' : '-'}</span>
                 </div>
                 ${fastest !== null ? `<div class="stat-item">
-                    <span class="stat-label">fastest 24h</span>
+                    <span class="stat-label">ตอบสนองเร็วสุด</span>
                     <span class="stat-value">${fastest} ms</span>
                 </div>` : ''}
                 ${data.length ? `<div class="stat-item">
-                    <span class="stat-label">data points</span>
+                    <span class="stat-label">จุดข้อมูล</span>
                     <span class="stat-value muted">${data.length}</span>
                 </div>` : ''}
             </div>
@@ -129,7 +129,7 @@ function renderServices(metrics) {
 
             <div class="spark-time-row">
                 <span class="spark-time">${oldest ? timeAgo(oldest) : '-'}</span>
-                <span class="spark-time">now</span>
+                <span class="spark-time">ตอนนี้</span>
             </div>`
 
         list.appendChild(card)
@@ -144,25 +144,24 @@ function renderServices(metrics) {
     const lbl = document.getElementById('overall-label')
     if (!metrics) {
         pill.className = 'overall-pill'
-        lbl.textContent = 'no data'
+        lbl.textContent = 'ไร้ข้อมูล'
     } else if (anyDown) {
         pill.className = 'overall-pill down'
         dot.classList.add('pulse')
-        lbl.textContent = 'partial outage'
+        lbl.textContent = 'หยุดทำงานบางส่วน'
     } else if (!allOk) {
         pill.className = 'overall-pill warn'
         dot.classList.add('pulse')
-        lbl.textContent = 'degraded'
+        lbl.textContent = 'ตอบสนองช้า'
     } else {
         pill.className = 'overall-pill ok'
         dot.classList.add('pulse')
-        lbl.textContent = 'operating'
+        lbl.textContent = 'ปกติ'
     }
 }
 
 function renderUptimeBar(uptime) {
     const grid = document.getElementById('uptime-grid')
-    const tip = document.getElementById('uptime-tooltip')
     grid.innerHTML = ''
     const today = new Date()
     const days = []
@@ -213,15 +212,9 @@ function renderUptimeBar(uptime) {
             rect.setAttribute('width', BAR_W)
             rect.setAttribute('height', VB_H)
             rect.setAttribute('fill', fill)
+            rect.setAttribute('title', info ? `${key} ทำงานอยู่ ${info.uptime.toFixed(1)}% (ตรวจสอบแล้ว ${info.checks} ครั้ง)` : `${key} - ไร้ข้อมูล`)
             rect.style.cursor = 'pointer'
 
-            rect.addEventListener('mousemove', e => {
-                tip.className = 'uptime-tooltip show'
-                tip.innerHTML = info ? `${key} - ${info.uptime.toFixed(1)}% uptime (${info.checks} checks)` : `${key} - no data`
-                tip.style.left = (e.clientX + 14) + 'px'
-                tip.style.top = (e.clientY - 36) + 'px'
-            })
-            rect.addEventListener('mouseleave', () => { tip.className = 'uptime-tooltip' })
             svg.appendChild(rect)
         })
 
@@ -230,9 +223,9 @@ function renderUptimeBar(uptime) {
         const legend = document.createElement('div')
         legend.className = 'uptime-legend'
         legend.innerHTML = `
-            <span class="uptime-legend-side">${DAYS - 1} days ago</span>
-            <span class="uptime-legend-center">${overallPct !== null ? overallPct + '% uptime' : 'no data'}</span>
-            <span class="uptime-legend-side">today</span>`
+            <span class="uptime-legend-side">${DAYS - 1} วันที่แล้ว</span>
+            <span class="uptime-legend-center">${overallPct !== null ? 'ทำงานอยู่ ' + overallPct + '%' : 'ไร้ข้อมูล'}</span>
+            <span class="uptime-legend-side">วันนี้</span>`
         block.appendChild(legend)
         grid.appendChild(block)
     })
@@ -267,8 +260,8 @@ function renderIncidents(incidents) {
 
 async function init() {
     const data = await loadAll()
-    renderServices(data?.metrics ?? null)
     renderUptimeBar(data?.uptime ?? null)
+    renderServices(data?.metrics ?? null)
     renderIncidents(data?.incidents ?? null)
 
     const el = document.getElementById('last-updated')
@@ -279,7 +272,7 @@ async function init() {
             if (d.length) latest = Math.max(latest, d[d.length - 1].t || 0)
         }
 
-        el.textContent = latest ? 'last updated ' + timeAgo(new Date(latest * 1000)) : 'data loaded'
-    } else el.textContent = 'could not load data'
+        el.textContent = latest ? 'อัปเดตล่าสุด ' + timeAgo(new Date(latest * 1000)) : 'โหลดข้อมูลแล้ว'
+    } else el.textContent = 'ไม่สามารถติดต่อกับเซิร์ฟเวอร์ได้'
 }
 init()

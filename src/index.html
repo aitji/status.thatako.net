@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://thatako.net/zStyles/root.css" />
     <link rel="stylesheet" href="./zStyles/styles.css" />
+    <link rel="stylesheet" href="./zStyles/tooltip.css" />
 
     <!-- icon -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://thatako.net/img/icon/favicon-32x32.png">
@@ -94,10 +95,10 @@
         <div class="topbar-actions">
             <div class="overall-pill" id="overall-pill">
                 <span class="status-dot" id="overall-dot"></span>
-                <span id="overall-label">loading...</span>
+                <span id="overall-label">กำลังร้องขอข้อมูลจากเซิร์ฟเวอร์...</span>
             </div>
             <a class="topbar-btn" href="https://github.com/aitji/status.thatako.net" target="_blank">
-                <i class="fa-brands fa-github"></i> source
+                <i class="fa-brands fa-github"></i> GitHub
             </a>
         </div>
     </header>
@@ -107,15 +108,18 @@
             <div class="page-eyebrow">system status</div>
             <h1>status.thatako.net</h1>
             <div class="page-meta">
-                <span id="last-updated">fetching data...</span>
+                <span id="last-updated">กำลังร้องขอข้อมูลจากเซิร์ฟเวอร์...</span>
                 <span class="dot">•</span>
                 <a href="https://github.com/aitji/status.thatako.net" target="_blank">
                     <i class="fa-brands fa-github"></i> aitji/status.thatako.net
                 </a>
             </div>
         </div>
+        
+        <div class="section-label">ระยะเวลาใช้งานใน 30 วันที่ผ่านมา</div>
+        <div id="uptime-grid"></div>
 
-        <div class="section-label">Services</div>
+        <div class="section-label">ชี้วัดผลการให้บริการ</div>
         <div id="services-list">
             <div class="service-card">
                 <div class="skeleton" style="width:40%;height:16px;margin-bottom:16px"></div>
@@ -131,10 +135,7 @@
             </div>
         </div>
 
-        <div class="section-label">30-day uptime</div>
-        <div id="uptime-grid"></div>
-
-        <div class="section-label">Past incidents</div>
+        <div class="section-label">อุบัติการณ์</div>
         <div id="incidents-list">
             <div class="skeleton" style="width:100%;height:80px;margin-bottom:8px"></div>
             <div class="skeleton" style="width:100%;height:60px"></div>
@@ -155,6 +156,7 @@
 
     <div class="uptime-tooltip" id="uptime-tooltip"></div>
     <script src="./app.js" type="module"></script>
+    <script src="https://thatako.net/zLib/tooltip.js" type="module"></script>
 </body>
 
 </html>
