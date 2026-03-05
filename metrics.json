@@ -4,12 +4,43 @@
       "t": 1772696950,
       "ms": 224,
       "up": true
+    },
+    {
+      "t": 1772699498,
+      "ms": 133,
+      "up": true
     }
   ],
   "thatako.net": [
     {
       "t": 1772696950,
       "ms": 64,
+      "up": true
+    },
+    {
+      "t": 1772699498,
+      "ms": 226,
+      "up": true
+    }
+  ],
+  "status.thatako.net": [
+    {
+      "t": 1772699498,
+      "ms": 77,
+      "up": true
+    }
+  ],
+  "workers.thatako.net": [
+    {
+      "t": 1772699498,
+      "ms": 62,
+      "up": true
+    }
+  ],
+  "workers.thatako.net/dns": [
+    {
+      "t": 1772699498,
+      "ms": 25,
       "up": true
     }
   ]
