@@ -1,0 +1,30 @@
+name: Status Check
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # daily at 00:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout data branch
+        uses: actions/checkout@v4
+        with:
+          ref: data
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run checks
+        run: node scripts/check.js
+
+      - name: Commit results
+        run: |
+          git config user.name  "status-bot"
+          git config user.email "status-bot@thatako.net"
+          git add metrics.json uptime.json incidents/
+          git diff --staged --quiet || git commit -m "chore: update status $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push origin data
