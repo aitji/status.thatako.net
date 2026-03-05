@@ -1,0 +1,21 @@
+{
+    "buildCommand": "npm run build",
+    "outputDirectory": "public",
+    "routes": [
+        {
+            "handle": "filesystem"
+        },
+        {
+            "src": "/img/(.*)",
+            "headers": {
+                "cache-control": "public, max-age=2592000, immutable"
+            }
+        },
+        {
+            "src": "/routes.json",
+            "headers": {
+                "cache-control": "public, max-age=2592000, immutable"
+            }
+        }
+    ]
+}
