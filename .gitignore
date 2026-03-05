@@ -1,0 +1,15 @@
+# big folders
+/public
+/node_modules
+
+# secrets and config files
+.env
+.env.local
+note.*
+* copy*
+*.cmd
+
+key.pem
+cert.pem
+localhost+2-key.pem
+localhost+2.pem
