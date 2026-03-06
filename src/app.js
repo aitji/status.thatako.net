@@ -70,8 +70,9 @@ function drawSparkline(canvas, data, color) {
     const x = i => (i / (data.length - 1)) * W
     const y = v => pad + ((max - v) / ((max - min) || 1)) * (H - pad * 2)
 
+    // gradient fill
     const grad = ctx.createLinearGradient(0, 0, 0, H)
-    grad.addColorStop(0, color + '30')
+    grad.addColorStop(0, color + '28')
     grad.addColorStop(1, color + '00')
     ctx.fillStyle = grad
 
@@ -84,6 +85,7 @@ function drawSparkline(canvas, data, color) {
     ctx.closePath()
     ctx.fill()
 
+    // line
     ctx.strokeStyle = color
     ctx.lineWidth = SPARK_LINE
     ctx.lineJoin = 'round'
@@ -93,6 +95,99 @@ function drawSparkline(canvas, data, color) {
     ctx.moveTo(x(0), y(vals[0]))
     for (let i = 1; i < vals.length; i++) ctx.lineTo(x(i), y(vals[i]))
     ctx.stroke()
+
+    // svg overlay
+    const wrap = canvas.parentElement
+    const old = wrap.querySelector('.spark-overlay')
+    if (old) old.remove()
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    svg.classList.add('spark-overlay')
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`)
+    svg.setAttribute('preserveAspectRatio', 'none')
+    svg.style.cssText = `position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none`
+    wrap.style.position = 'relative'
+
+    // vertical line
+    const vline = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+    vline.setAttribute('x1', 0); vline.setAttribute('x2', 0)
+    vline.setAttribute('y1', 0); vline.setAttribute('y2', H)
+    vline.setAttribute('stroke', color)
+    vline.setAttribute('stroke-width', 1)
+    vline.setAttribute('stroke-dasharray', '3 3')
+    vline.style.cssText = `opacity:0;transition:opacity 0.1s`
+    svg.appendChild(vline)
+
+    const rings = []
+    const dots = []
+
+    data.forEach((d, i) => {
+        const cx = x(i)
+        const cy = y(d.ms)
+
+        const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+        ring.setAttribute('cx', cx); ring.setAttribute('cy', cy); ring.setAttribute('r', 5)
+        ring.setAttribute('fill', color + '22')
+        ring.setAttribute('stroke', color + '44')
+        ring.setAttribute('stroke-width', 1)
+        ring.style.cssText = `pointer-events:none;transition:r 0.12s,fill 0.12s,stroke 0.12s`
+        svg.appendChild(ring)
+        rings.push(ring)
+
+        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+        dot.setAttribute('cx', cx); dot.setAttribute('cy', cy); dot.setAttribute('r', 2.5)
+        dot.setAttribute('fill', color)
+        dot.setAttribute('opacity', '0.35')
+        dot.setAttribute('stroke', 'var(--color-bg-secondary,#18181b)')
+        dot.setAttribute('stroke-width', 1.5)
+        dot.style.cssText = `pointer-events:none;transition:opacity 0.12s,r 0.12s`
+        svg.appendChild(dot)
+        dots.push(dot)
+    })
+
+    data.forEach((d, i) => {
+        const cx = x(i)
+        const cy = y(d.ms)
+
+        const prevX = i > 0 ? x(i - 1) : cx
+        const nextX = i < data.length - 1 ? x(i + 1) : cx
+        const stripX = (cx + prevX) / 2
+        const stripW = (nextX - prevX) / 2
+
+        const time = d.t ? new Date(d.t * SEC).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''
+        const status = !d.up ? 'หยุดทำงาน' : d.ms > SLOW_MS ? 'ตอบสนองช้า' : 'ปกติ'
+
+        const strip = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+        strip.setAttribute('x', stripX)
+        strip.setAttribute('y', 0)
+        strip.setAttribute('width', Math.max(stripW, 4))
+        strip.setAttribute('height', H)
+        strip.setAttribute('fill', 'transparent')
+        strip.setAttribute('title', `${status}  (${d.ms} ms)${time ? ' เมื่อ ' + time : ''}`)
+        strip.style.cssText = `pointer-events:all;cursor:crosshair`
+
+        strip.addEventListener('mouseenter', () => {
+            dots[i].setAttribute('opacity', '1')
+            dots[i].setAttribute('r', 3.5)
+            rings[i].setAttribute('r', 7)
+            rings[i].setAttribute('fill', color + '33')
+            rings[i].setAttribute('stroke', color + '88')
+            vline.setAttribute('x1', cx); vline.setAttribute('x2', cx)
+            vline.style.opacity = '1'
+        })
+        strip.addEventListener('mouseleave', () => {
+            dots[i].setAttribute('opacity', '0.35')
+            dots[i].setAttribute('r', 2.5)
+            rings[i].setAttribute('r', 5)
+            rings[i].setAttribute('fill', color + '22')
+            rings[i].setAttribute('stroke', color + '44')
+            vline.style.opacity = '0'
+        })
+
+        svg.appendChild(strip)
+    })
+
+    wrap.appendChild(svg)
 }
 
 function renderServices(metrics) {
