@@ -4,5 +4,11 @@
     "file": "2026-03-05-outage.md",
     "title": "Outage detected: dns.thatako.net",
     "auto": true
+  },
+  {
+    "date": "2026-03-25",
+    "file": "2026-03-25-outage.md",
+    "title": "Outage detected: go.thatako.net, workers.thatako.net",
+    "auto": true
   }
 ]
