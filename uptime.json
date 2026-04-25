@@ -1,10 +1,5 @@
 {
   "go.thatako.net": {
-    "2026-03-24": {
-      "uptime": 100,
-      "checks": 20,
-      "down": 0
-    },
     "2026-03-25": {
       "uptime": 95,
       "checks": 20,
@@ -159,14 +154,14 @@
       "uptime": 100,
       "checks": 17,
       "down": 0
+    },
+    "2026-04-25": {
+      "uptime": 100,
+      "checks": 1,
+      "down": 0
     }
   },
   "thatako.net": {
-    "2026-03-24": {
-      "uptime": 100,
-      "checks": 20,
-      "down": 0
-    },
     "2026-03-25": {
       "uptime": 100,
       "checks": 20,
@@ -321,14 +316,14 @@
       "uptime": 100,
       "checks": 17,
       "down": 0
+    },
+    "2026-04-25": {
+      "uptime": 100,
+      "checks": 1,
+      "down": 0
     }
   },
   "status.thatako.net": {
-    "2026-03-24": {
-      "uptime": 100,
-      "checks": 20,
-      "down": 0
-    },
     "2026-03-25": {
       "uptime": 100,
       "checks": 20,
@@ -483,14 +478,14 @@
       "uptime": 100,
       "checks": 17,
       "down": 0
+    },
+    "2026-04-25": {
+      "uptime": 100,
+      "checks": 1,
+      "down": 0
     }
   },
   "workers.thatako.net": {
-    "2026-03-24": {
-      "uptime": 100,
-      "checks": 20,
-      "down": 0
-    },
     "2026-03-25": {
       "uptime": 95,
       "checks": 20,
@@ -645,14 +640,14 @@
       "uptime": 100,
       "checks": 17,
       "down": 0
+    },
+    "2026-04-25": {
+      "uptime": 100,
+      "checks": 1,
+      "down": 0
     }
   },
   "workers.thatako.net/dns": {
-    "2026-03-24": {
-      "uptime": 100,
-      "checks": 20,
-      "down": 0
-    },
     "2026-03-25": {
       "uptime": 100,
       "checks": 20,
@@ -806,6 +801,11 @@
     "2026-04-24": {
       "uptime": 100,
       "checks": 17,
+      "down": 0
+    },
+    "2026-04-25": {
+      "uptime": 100,
+      "checks": 1,
       "down": 0
     }
   }
