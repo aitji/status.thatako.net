@@ -16,5 +16,11 @@
     "file": "2026-04-17-outage.md",
     "title": "Outage detected: thatako.net",
     "auto": true
+  },
+  {
+    "date": "2026-10-28",
+    "file": "2026-10-28-outage.md",
+    "title": "Outage detected: workers.thatako.net/dns",
+    "auto": true
   }
 ]
